@@ -42,7 +42,7 @@ class PP_EU_Export_Users {
 	public function __construct() {
 		add_filter( 'export_filters', array( $this, 'filter_export_args' ) );
 		add_action( 'export_wp', array( $this, 'generate_csv' ) );
-		add_filter( 'pp_eu_exclude_data', array( $this, 'exclude_data' ) );
+		add_filter( 'pp_eu_include_data', array( $this, 'include_data' ) );
 		add_action( 'init', array( $this, 'load_textdomain' ), 0 );
 		add_action('admin_notices', array($this, 'eutc_add_export_button') );
 		$this->setup_constants();
