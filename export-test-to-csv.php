@@ -201,7 +201,7 @@ class PP_EU_Export_Users {
 			header( 'Content-Disposition: attachment; filename=' . $filename );
 			header( 'Content-Type: text/csv; charset=' . get_option( 'blog_charset' ), true );
 
-			$exclude_data = apply_filters( 'pp_eu_exclude_data', array() );
+			 $include_data = apply_filters( 'pp_eu_include_data', array() );
 
 			global $wpdb;
 
@@ -224,7 +224,7 @@ class PP_EU_Export_Users {
 			$headers = array();
 
 			foreach ( $fields as $key => $field ) {
-				if ( in_array( $field, $exclude_data ) ) {
+				if ( !in_array( $field, $include_data ) ) {
 					unset( $fields[ $key ] );
 				} else {
 					$headers[] = '"' . strtolower( $field ) . '"';
@@ -248,10 +248,12 @@ class PP_EU_Export_Users {
 		}
 	}
 
-	public function exclude_data() {
-		$exclude = array( 'user_pass', 'user_activation_key' );
-
-		return $exclude;
+	public function include_data() {
+		$include = array( 'shipping_company', 'wp_capabilities', 'user_email', '_order_count', '_money_spent', 'paying_customer', 'submitted',
+                        'account_status', 'role', 'state_license_number', 'pdf_license', 'dea_registration_pdf
+');
+        
+		return $include;
 	}
 
 	public function pre_user_query( $user_search ) {
